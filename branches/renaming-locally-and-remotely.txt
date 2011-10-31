@@ -1,0 +1,51 @@
+-*- mode:hilock; eval: (highlight-regexp " \$.*" 'bold) -*-
+
+N.B.  The term 'remote branch' can refer to a branch in a remote repository just
+      as easily as it can to a remote branch in a local repository.  To avoid
+      any such ambiguity, this discussion consistently refers to ordinary
+      branches (which only exist locally), local remote branches or remote
+      remote branches.
+
+      Occasionally the term 'remote branch' is used without one of the words
+      'local' or 'remote' immediately preceding it.  In this case, care has been
+      taken to ensure that the term is qualified in some other lexically
+      unambiguos manner.
+
+
+Renaming an ordinary branch is as simple as:
+
+ $ git branch -m master production
+
+A remote branch can't be renamed (neither locally nor remotely).  It can only be
+deleted (locally and remotely) and a renamed ordinary branch pushed to the
+remote repository in its place.
+
+So, to delete a local remote branch:
+
+ $ git branch -dr origin/master
+
+and to delete a remote remote branch, push the deleted local remote branch to
+your remote repository:
+
+ $ git push origin :master
+
+not forgetting to precede the name of the deleted local remote branch with a
+colon.
+
+Branch 'master' in the remote repository has now been deleted and it only
+remains to push the renamed ordinary branch to the remote repository in order to
+complete the renaming:
+
+ $ git push -u origin production
+
+Finally, a note about github repositories.  If you get an error message that
+looks something like this:
+
+ remote: error: refusing to delete the current branch: refs/heads/master
+ To git@github.com:sebyte/gitana.git
+  ! [remote rejected] develop (deletion of the current branch prohibited)
+
+when trying to delete a branch on github, this is because the branch is
+currently the 'default' branch in terms of the github web interface.  The fix is
+simple.  Click the 'Admin' button, select an alternative default branch and then
+try again.

@@ -1,10 +1,10 @@
-Created an empty git repository on my local machine:
+Create an empty git repository on local machine:
 
  $ cd ~/git
  $ mkdir gitana
  $ git init
 
-and added a README:
+Add a README file and commit:
 
  $ git add README
  $ git commit -m 'Initial commit'
@@ -12,4 +12,5 @@ and added a README:
 It's necessary to commit a file at this early stage because branch 'master'
 doesn't actually exist until you perform your first commit (despite the fact
 that ruynning 'git status' at this stage suggests it does) and you can't create
-further branches (or rename branch 'master') unless branch 'master' exists.
+further branches (or rename branch 'master') unless branch 'master' really does
+exists.

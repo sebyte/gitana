@@ -1,16 +1,19 @@
-Create an empty git repository on local machine:
+Create an empty git repository on your local machine:
 
  $ cd ~/git
  $ mkdir gitana
+ $ cd gitana
  $ git init
 
-Add a README file and commit:
+At this point you may decide to create a new branch, or rename the default
+branch 'master'.  Well, you can't.  "Why on earth not?" I can hear you thinking.
+That's OK.  I thought exactly the same thing.  The fact is, you can't create
+more branches (or rename branch 'master') until branch 'master' actually exists,
+and it doesn't exist until you perform your first commit.  So...
+
+Create a README file, add it and commit:
 
  $ git add README
  $ git commit -m 'Initial commit'
 
-It's necessary to commit a file at this early stage because branch 'master'
-doesn't actually exist until you perform your first commit (despite the fact
-that running 'git status' at this stage suggests it does) and you can't create
-further branches (or rename branch 'master') unless branch 'master' really does
-exists.
+Now you can start playing with branches.

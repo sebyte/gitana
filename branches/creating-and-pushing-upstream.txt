@@ -10,7 +10,7 @@ long way would be to do:
  $ git branch develop			# create branch
  $ git checkout develop			# switch to it
 
-Create upstream branches by pushing local branches to remote repositories, like
+Create remote branches by pushing local branches to remote repositories, like
 so:
 
  $ git push -u origin develop
@@ -43,5 +43,9 @@ entry:
 From now on, a simple:
 
  $ git push origin
+
+or even
+
+ $ git push
 
 will suffice.

@@ -1,0 +1,75 @@
+-*- mode:hilock; eval: (highlight-regexp " \$.*" 'bold) -*-
+
+There are many, many great things about github.  One of them is the ability to
+edit files in your github repository using the web interface.  It makes testing
+how to fetch and pull so much easier than it would otherwise be.
+
+Here, I've edited remotes/adding.txt using the web interface and I've decided to
+'pull' the changes:
+
+ $ git pull
+ Enter passphrase for key '/home/sebyte/.ssh/id_rsa':
+ remote: Counting objects: 7, done.
+ remote: Compressing objects: 100% (4/4), done.
+ remote: Total 4 (delta 2), reused 0 (delta 0)
+ Unpacking objects: 100% (4/4), done.
+ From github.com:sebyte/gitana
+    73c9c3d..9e40992  development -> github.com/development
+ Updating 73c9c3d..9e40992
+ Fast-forward
+  remotes/adding.txt |    2 +-
+  1 files changed, 1 insertions(+), 1 deletions(-)
+
+Compare that, with this 'fetch' of some changes I made to... some file or other?
+(Actually, it was the README, but I can't tell that from the output of the
+'fetch' commmand).
+
+ $ git fetch
+ Enter passphrase for key '/home/sebyte/.ssh/id_rsa':
+ remote: Counting objects: 5, done.
+ remote: Compressing objects: 100% (3/3), done.
+ remote: Total 3 (delta 0), reused 0 (delta 0)
+ Unpacking objects: 100% (3/3), done.
+ From github.com:sebyte/gitana
+    897c5df..4e79ca7  development -> github.com/development
+
+A status check tells us that we're not up to speed:
+
+ $ git status
+ # On branch development
+ # Your branch is behind 'github.com/development' by 1 commit, and can be fast-forwarded.
+ [...]
+
+What's all this about 'fast-forwarding'?
+
+The bottom of this page:
+
+ http://book.git-scm.com/3_basic_branching_and_merging.html
+
+explains it quite nicely:
+
+ "Normally, a merge results in a merge commit with two parents, one for each of
+  the two lines of development that were merged.
+
+  However, if the current branch has not diverged from the other--so every
+  commit present in the current branch is already contained in the other--then
+  git just performs a "fast forward"; the head of the current branch is moved
+  forward to point at the head of the merged-in branch, without any new commits
+  being created."
+
+Incidentally, "a merge with more than two parents [is] affectionately called an
+Octopus merge".[1]
+
+So, merging the result of this fetch is as simple as:
+
+ $ git merge github.com/development
+ Updating 897c5df..4e79ca7
+ Fast-forward
+  README |    5 +++++
+  1 files changed, 5 insertions(+), 0 deletions(-)
+
+
+
+
+
+[1] (man "git-merge") line 141

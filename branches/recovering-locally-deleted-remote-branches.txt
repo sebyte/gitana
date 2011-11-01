@@ -1,0 +1,47 @@
+-*- mode:hilock; eval: (highlight-regexp " \$.*" 'bold) -*-
+
+ $ git branch -a
+ * development
+   production
+   testbranch
+   remotes/github.com/development
+   remotes/github.com/production
+   remotes/github.com/testbranch
+
+What happens if you delete a local remote branch, and then wish you hadn't?
+
+ $ git branch -dr github/testbranch
+ $ git branch -a
+ * development
+   production
+   testbranch
+   remotes/github.com/development
+   remotes/github.com/production
+
+How can I recover this local remote branch, given that the remote remote branch
+still exists in the remote repository?  Well, there are two ways.  You can
+either ignore the fact that the remote remote branch still exists in the remote
+repository and simply push the local branch to your remote repositry again:
+
+ $ git push -u github.com testbranch
+ Enter passphrase for key '/home/sebyte/.ssh/id_rsa':
+ Branch testbranch set up to track remote branch testbranch from github.com.
+ Everything up-to-date
+
+or you can perform a 'pull' operation:
+
+ $ git pull
+ Enter passphrase for key '/home/sebyte/.ssh/id_rsa':
+ From github.com:sebyte/gitana
+  * [new branch]      testbranch -> github.com/testbranch
+ Already up-to-date.
+
+In either case, your local remote branch has been restored:
+
+ $ git branch -a
+ * development
+   production
+   testbranch
+   remotes/github.com/development
+   remotes/github.com/production
+   remotes/github.com/testbranch

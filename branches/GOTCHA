@@ -1,0 +1,11 @@
+The term 'remote branch' can refer to a branch in a remote git repository just
+as easily as it can to a remote branch in a local git repository.  To avoid any
+such ambiguity, the discussions here consistently refer to ordinary branches
+(which only exist locally), local remote branches and remote remote branches.
+
+Whilst 'local remote branch' may seem nonsensical and 'remote remote branch'
+plain crazy, the distinctions are very important.
+
+Occasionally the term 'remote branch' is used without one of the words 'local'
+or 'remote' immediately preceding it.  In this case, care has been taken to
+ensure that the term is qualified in some other lexically unambiguous manner.

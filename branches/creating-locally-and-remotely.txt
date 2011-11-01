@@ -1,19 +1,20 @@
 -*- mode:hilock; eval: (highlight-regexp " \$.*" 'bold) -*-
 
-Create branch 'develop' locally:
+Quickly create an ordinary branch and switch to it:
 
- $ git checkout -b develop
+ $ git checkout -b testbranch
 
--b is a shortcut telling git to create the branch before switching to it.  The
-long way would be to do:
+The long way would be to do:
 
- $ git branch develop			# create branch
- $ git checkout develop			# switch to it
+ $ git branch testbranch			# create branch
+ $ git checkout testbranch			# switch to it
 
-Create remote branches by pushing local branches to remote repositories, like
-so:
+Local remote branches and remote remote branches are always created at the same
+time, by pushing ordinary branches to remote repositories.  For this reason, the
+name of the remote remote branch is always that of the ordinary branch from
+which it was created.
 
- $ git push -u origin develop
+ $ git push -u origin testbranch
  Enter passphrase for key '/home/sebyte/.ssh/id_rsa':
  Counting objects: 3, done.
  Delta compression using up to 4 threads.
@@ -21,14 +22,14 @@ so:
  Writing objects: 100% (3/3), 285 bytes, done.
  Total 3 (delta 0), reused 0 (delta 0)
  To git@github.com:sebyte/gitana.git
-  * [new branch]      develop -> develop
- Branch develop set up to track remote branch develop from origin.
+  * [new branch]      testbranch -> testbranch
+ Branch testbranch set up to track remote branch testbranch from origin.
 
 -u is short for --set-upstream and it tells git which branch to merge with in
 future (when fetching/pulling, e.t.c.).  The long way would be to do:
 
- $ git push origin develop
- $ git branch --set-upstream develop origin/develop
+ $ git push origin testbranch
+ $ git branch --set-upstream testbranch origin/testbranch
 
 In either case, what you are effectively doing is making a .git/config 'merge'
 entry:
@@ -36,9 +37,9 @@ entry:
  [remote "origin"]
 	 url = git@github.com:sebyte/gitana.git
 	 fetch = +refs/heads/*:refs/remotes/origin/*
- [branch "develop"]
+ [branch "testbranch"]
 	 remote = origin
-	 merge = refs/heads/develop
+	 merge = refs/heads/testbranch
 
 From now on, a simple:
 

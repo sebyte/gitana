@@ -11,12 +11,12 @@ either unmodified or modified, in which case they contain staged or unstaged
 changes (or both).
 
 
-Emacs users should make add the following to their ~/.gitconfig:
+All Emacs users should add the following to their ~/.gitconfig:
 
  [core]
    excludesfile = ~/.gitexcludes
 
-and their ~/.gitexcludes should read:
+and their ~/.gitexcludes file should read:
 
  \#*
  .#*

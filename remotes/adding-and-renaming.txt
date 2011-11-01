@@ -8,6 +8,6 @@ Renaming a remote repository couldn't be much simpler either:
 
  $ git remote rename origin github.com
 
-One wasy to check the result:
+One way to check the result:
 
  $ git config --list

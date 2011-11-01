@@ -1,0 +1,74 @@
+-*- mode:hilock; eval: (highlight-regexp " \$.*" 'bold) -*-
+
+ Below are examples of each of these commands, listed in the order in which they
+ are typically used:
+
+  git stash [save]	- stash all modifications away
+  git stash list	- compact list of stashes
+  git stash show	- stash contents
+  git stash pop		- move a stash back
+
+ There aren't examples of these two:
+
+  git stash apply	- copy a stash back
+  git stash drop	- delete a stash
+
+
+
+  $ git status
+  # On branch development
+  # Your branch is ahead of 'origin/development' by 1 commit.
+  #
+  # Changes to be committed:
+  #   (use "git reset HEAD <file>..." to unstage)
+  #
+  #	new file:   diffing.txt
+  #	new file:   misc.txt
+  #
+  # Untracked files:
+  #   (use "git add <file>..." to include in what will be committed)
+  #
+  #	branches/stashing.txt
+  #	branches/switching.txt
+
+  $ git stash			# same as 'git stash save'
+  Saved working directory and index state WIP on development: 851ff8b Misc. additions.
+  HEAD is now at 851ff8b Misc. additions.
+
+  $ git status
+  # On branch development
+  # Your branch is ahead of 'origin/development' by 1 commit.
+  #
+  # Untracked files:
+  #   (use "git add <file>..." to include in what will be committed)
+  #
+  #	branches/stashing.txt
+  #	branches/switching.txt
+  nothing added to commit but untracked files present (use "git add" to track)
+
+  $ git stash list
+  stash@{0}: WIP on development: 851ff8b Misc. additions.
+
+  $ git stash show
+  diffing.txt |    3 +++
+  misc.txt    |   24 ++++++++++++++++++++++++
+  2 files changed, 27 insertions(+), 0 deletions(-)
+
+  $ git stash pop
+  # On branch development
+  # Your branch is ahead of 'origin/development' by 1 commit.
+  #
+  # Changes to be committed:
+  #   (use "git reset HEAD <file>..." to unstage)
+  #
+  #	new file:   diffing.txt
+  #	new file:   misc.txt
+  #
+  # Untracked files:
+  #   (use "git add <file>..." to include in what will be committed)
+  #
+  #	branches/stashing.txt
+  #	branches/switching.txt
+  Dropped refs/stash@{0} (29da6ee0ff8601857212620159f452239294ae95)
+
+  $ git stash list

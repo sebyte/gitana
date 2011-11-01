@@ -1,0 +1,33 @@
+-*- mode:hilock; eval: (highlight-regexp " \$.*" 'bold) -*-
+
+Swiching branches should be easy, right?  Simply do:
+
+ $ git checkout production
+
+to switch to the production branch, correct?
+
+Yes, but there's quite a lot more to it than that.
+
+Uncommited modifications to tracked files (and staged deletions) in your current
+branch will prevent git from making the switch.
+
+ $ git checkout production
+ error: Your local changes to the following files would be overwritten by checkout:
+	 README
+	 remotes/adding-and-renaming.txt
+ Please, commit your changes or stash them before you can switch branches.
+ Aborting
+ sebyte@legnuvo:gitana:[development*]$
+
+New files which are staged in the current branch will not prevent the switch -
+the new files are simply staged in the newly chosen branch - and untracked files
+simply remain untracked. [1]
+
+Committing changes is something that generally requires a certain amount of
+thought so what to do if you're in the middle of a complex set of changes and
+you need to switch branches.  Enter 'stash' left.
+
+
+[1] I believe the rule is that git will refuse to perform a switch whenever
+    doing so would cause modifications (or whole files in the case of staged
+    deletions) to be irretrievably lost.

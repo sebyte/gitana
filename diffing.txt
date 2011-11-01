@@ -1,0 +1,3 @@
+git diff is a complex command.
+
+Don't start at the top of the page, rather (gitman "diff" 744).

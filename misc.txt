@@ -1,0 +1,24 @@
+Every subdirectory in a Subversion working copy has its own .svn/ subdirectory
+whereas git working copies have just one .git/ subdirectory (at the top level)
+and no more.
+
+
+Files are either untracked, staged or tracked.  git knows nothing about
+untracked files (except that they exist).  Staged files are by definition new
+files, i.e., files that are about to be committed for the first time.  And
+tracked files are files which have already been committed and are therefore
+either unmodified or modified, in which case they contain staged or unstaged
+changes (or both).
+
+
+Emacs users should make add the following to their ~/.gitconfig:
+
+ [core]
+   excludesfile = ~/.gitexcludes
+
+and their ~/.gitexcludes should read:
+
+ \#*
+ .#*
+
+(without the single space indentation).

@@ -1,3 +1,19 @@
+-*- mode:hilock; eval: (highlight-regexp " \$.*" 'bold) -*-
+
 git diff is a complex command.
 
 Don't start at the top of the page, rather (gitman "diff" 744).
+
+Comparing branches
+------------------
+
+ $ git diff                production..development
+ $ git diff --name-status  production..development
+ $ git diff --stat --color production..development
+
+The first of these is very verbose.  The last two are concise.
+
+ $ git log                 production..development
+ $ git shortlog            production..development
+
+Similarly, shortlog is more concise.

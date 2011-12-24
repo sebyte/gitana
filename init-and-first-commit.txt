@@ -5,11 +5,18 @@ Create an empty git repository on your local machine:
  $ cd gitana
  $ git init
 
-At this point you may decide to create a new branch, or rename the default
-branch 'master'.  Well, you can't.  "Why on earth not?" I can hear you thinking.
-That's OK.  I thought exactly the same thing.  The fact is, you can't create
-more branches (or rename branch 'master') until branch 'master' actually exists,
-and it doesn't exist until you perform your first commit.  So...
+At this point you may decide to create a new branch, or change the name of
+default branch from 'master' to something else?
+
+Well, you can't.
+
+"Why on earth not?" I can hear you thinking.
+
+That's OK.  I thought exactly the same thing.
+
+The fact is, you can't create more branches (or rename branch 'master') until
+branch 'master' actually exists, and it doesn't exist until you perform your
+first commit.  So...
 
 Create a README file, add it and commit:
 

@@ -1,0 +1,63 @@
+-*- mode:hilock; eval: (highlight-regexp " \$.*" 'bold) -*-
+
+Having spent a few days working in branch 'development', I decided it was time
+to have a go at preparing a new release, i.e., a merge of branch 'development'
+with branch 'production', followed by the creation of a new tag on branch
+'production'.
+
+ $ git checkout production
+ Switched to branch 'production'
+
+ $ git merge development
+ Updating c95c0c5..b350fdb
+ Fast-forward
+  README                                             |    4 +
+  branches/GOTCHA                                    |   11 +++
+  branches/creating-locally-and-remotely.txt         |   52 +++++++++++++
+  .../recovering-locally-deleted-remote-branches.txt |   47 ++++++++++++
+  branches/renaming-locally-and-remotely.txt         |   39 ++++++++++
+  branches/stashing.txt                              |   74 +++++++++++++++++++
+  branches/switching.txt                             |   33 +++++++++
+  diffing.txt                                        |    3 +
+  init-and-first-commit.txt                          |   19 +++++
+  misc.txt                                           |   24 ++++++
+  remotes/adding-and-renaming.txt                    |   26 +++++++
+  remotes/fetch-plus-merge-equals-pull.txt           |   77 ++++++++++++++++++++
+  12 files changed, 409 insertions(+), 0 deletions(-)
+  create mode 100644 branches/GOTCHA
+  create mode 100644 branches/creating-locally-and-remotely.txt
+  create mode 100644 branches/recovering-locally-deleted-remote-branches.txt
+  create mode 100644 branches/renaming-locally-and-remotely.txt
+  create mode 100644 branches/stashing.txt
+  create mode 100644 branches/switching.txt
+  create mode 100644 diffing.txt
+  create mode 100644 init-and-first-commit.txt
+  create mode 100644 misc.txt
+  create mode 100644 remotes/adding-and-renaming.txt
+  create mode 100644 remotes/fetch-plus-merge-equals-pull.txt
+
+ $ git push
+ Enter passphrase for key '/home/sebyte/.ssh/id_rsa':
+ Counting objects: 70, done.
+ Delta compression using up to 4 threads.
+ Compressing objects: 100% (68/68), done.
+ Writing objects: 100% (68/68), 13.01 KiB, done.
+ Total 68 (delta 25), reused 0 (delta 0)
+ To git@github.com:sebyte/gitana.git
+    c95c0c5..b350fdb  production -> production
+  ! [rejected]        development -> development (non-fast-forward)
+ error: failed to push some refs to 'git@github.com:sebyte/gitana.git'
+ To prevent you from losing history, non-fast-forward updates were rejected
+ Merge the remote changes (e.g. 'git pull') before pushing again.  See the
+ 'Note about fast-forwards' section of 'git push --help' for details.
+
+The error (above) occurred because I edited a file (in branch 'development')
+using github's web interface and forgot to pull it before performing the merge.
+Therefore when it came to the push, branch 'development' was out-of-date.
+
+This also challenged my understanding of 'push'.  I had naïvely assumed that
+push only dealt with a single branch at a time.  I can now see clearly that
+that's not the case.
+
+
+Haven't got around to the tagging part yet - FIXME

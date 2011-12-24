@@ -18,7 +18,7 @@ your remote repository:
  $ git push origin :master
 
 not forgetting to precede the name of the deleted local remote branch with a
-colon.
+colon. [1]
 
 Branch 'master' in the remote repository has now been deleted and it only
 remains to push the renamed ordinary branch to the remote repository in order to
@@ -37,3 +37,16 @@ when trying to delete a branch on github, this is because the branch is
 currently the 'default' branch in terms of the github web interface.  The fix is
 simple.  Click the 'Admin' button, select an alternative default branch and then
 try again.
+
+
+[1] On closer inspection of (gitman "push" 75) I now understand this notation a
+    little better.  The general synopsis of git-push is:
+
+     git push [<options>] [<repository> [<refspec>...]]
+
+    so in this case there are no options, 'origin' is the repository and
+    ':master' is the refspec.
+
+     git push --delete origin master
+
+    does the same thing (and makes what's going on a lot clearer IMHO).

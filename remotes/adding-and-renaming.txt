@@ -1,26 +1,19 @@
 -*- mode:hilock; eval: (highlight-regexp " \$.*" 'bold) -*-
 
+List remote repositories:
+
+ $ git remote [-v]
+
 Adding a remote repository called 'origin' couldn't be simpler:
 
  $ git remote add origin git@github.com:sebyte/gitana.git
 
 Renaming a remote repository couldn't be much simpler either:
 
- $ git remote rename origin github.com
+ $ git remote rename origin sebyte
 
 One way to check the result is to issue the command:
 
  $ git config --list
 
 Another way is simply to visit the file .git/config and see for yourself.
-
-On second thoughts, 'github.com' is not a very sensible name for a remote
-repository.  'origin' is much better.  As a rule of thumb, if the remote
-repository is one of yours, i.e., one over which you have complete control, then
-the name you give the remote repository should probably describe its function,
-not its location or anything like that.  If the remote repository belongs to a
-collaborator, then the name you give it should probably identify the
-collaborator.
-
-It's really not all that important, especially not at this stage, and bear in
-mind that 'remotes' are all defined on a local (working copy) basis.

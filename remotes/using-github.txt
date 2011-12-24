@@ -1,0 +1,22 @@
+Contributing to github hosted projects as a non-collaborator, i.e., without
+write permission in the upstream repository.
+
+ 1. Fork the repo in github.
+
+ 2. Checkout a working copy of your fork.
+
+ 3. Push the changes (to your fork) to github.
+
+ 4. Issue a github pull request.
+
+ [Pull request is accepted and merged]
+
+ 5. Add the upstream repo as as remote.
+
+ 6. Pull from upstream remote.
+
+ [Your working copy includes your changes and is now up-to-date with upstream]
+
+ 7. Push to your github fork.
+
+ [Your github fork is now up-to-date with upstream too]

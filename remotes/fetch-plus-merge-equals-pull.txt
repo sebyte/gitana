@@ -74,4 +74,4 @@ So, merging the result of this fetch is as simple as:
 
 
 
-[1] (man "git-merge") line 141
+[1] (gitman "merge" 141)

@@ -1,0 +1,14 @@
+-*- mode:hilock; eval: (highlight-regexp " \$.*" 'bold) -*-
+
+I've been working in local branch 'development' (which tracks local remote
+branch 'origin/development') and I'd like to create (and switch to) a local
+branch 'production' (which tracks local remote branch 'origin/production').
+Here's how to do it:
+
+ $ git checkout --track origin/production
+
+Here, the name of the new branch is based on the name of the local remote
+('production').  To give your local branch a different name git checkout must be
+called like this instead:
+
+ $ git checkout --track -b prod origin/production

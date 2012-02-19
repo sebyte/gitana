@@ -1,4 +1,4 @@
--*- mode:hilock; eval: (highlight-regexp " \$.*" 'bold) -*-
+-*- mode:hi-lock; eval: (highlight-regexp " \$.*" 'bold) -*-
 
 Having spent a few days working in branch 'development', I decided it was time
 to have a go at preparing a new release, i.e., a merge of branch 'development'

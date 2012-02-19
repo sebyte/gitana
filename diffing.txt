@@ -1,4 +1,4 @@
--*- mode:hilock; eval: (highlight-regexp " \$.*" 'bold) -*-
+-*- mode:hi-lock; eval: (highlight-regexp " \$.*" 'bold) -*-
 
 git diff is a complex command.
 

@@ -1,4 +1,4 @@
--*- mode:hilock; eval: (highlight-regexp " \$.*" 'bold) -*-
+-*- mode:hi-lock; eval: (highlight-regexp " \$.*" 'bold) -*-
 
 I've been working in local branch 'development' (which tracks local remote
 branch 'origin/development') and I'd like to create (and switch to) a local

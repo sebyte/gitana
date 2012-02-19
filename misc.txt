@@ -1,3 +1,5 @@
+-*- mode:hi-lock; eval: (highlight-regexp " \$.*" 'bold) -*-
+
 Every subdirectory in a Subversion working copy has its own .svn/ subdirectory
 whereas git working copies have just one .git/ subdirectory (at the top level)
 and no more.

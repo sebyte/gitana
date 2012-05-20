@@ -1,0 +1,82 @@
+-*- mode:hi-lock; eval: (highlight-regexp " \$.*" 'bold) -*-
+
+For example, edicl/hunchentoot.
+
+I have my own fork; sebyte/hunchentoot.
+
+How do I bring my fork up-to-date with edicl's?
+
+Answer, via a local clone of my fork:
+
+ $ git pull edicl master
+
+ $ git push sebyte
+
+These two commands assume 'edicl' and 'sebyte' are properly configured remotes
+in the local clone.
+
+
+A more verbose example:
+
+ $ git checkout master
+ Switched to branch 'master'
+
+ $ git fetch --verbose edicl
+ Enter passphrase for key '/root/.ssh/id_rsa':
+ From github.com:edicl/hunchentoot
+    fa088b0..a9eb80c  master     -> edicl/master
+    fa088b0..c775519  v1.2       -> edicl/v1.2
+  * [new tag]         v1.2.3     -> v1.2.3
+
+ $ git merge edicl/master
+ Updating 2a888be..a9eb80c
+ Fast-forward
+  CHANGELOG                |    4 ++++
+  acceptor.lisp            |   10 +++++++---
+  doc/index.xml            |   29 ++++++++++++++---------------
+  easy-handlers.lisp       |    1 +
+  hunchentoot.asd          |    2 +-
+  misc.lisp                |    3 +--
+  packages.lisp            |    2 +-
+  www/hunchentoot-doc.html |    2 +-
+  8 files changed, 30 insertions(+), 23 deletions(-)
+
+ $ git checkout v1.2
+ Switched to branch 'v1.2'
+
+ $ git merge edicl/v1.2
+ Updating 3b7fc7d..c775519
+ Fast-forward
+  CHANGELOG                |   34 +++++++++++++++++++++++-----------
+  acceptor.lisp            |   28 +++++++++++++++-------------
+  cookie.lisp              |    2 +-
+  doc/index.xml            |    2 +-
+  easy-handlers.lisp       |    1 +
+  hunchentoot.asd          |    2 +-
+  log.lisp                 |    5 ++---
+  misc.lisp                |   38 +++++++++++---------------------------
+  packages.lisp            |    4 +++-
+  request.lisp             |   39 ++++++++++++++++++++++++++++++++++++---
+  session.lisp             |    3 ++-
+  set-timeouts.lisp        |   12 +++++++++++-
+  test/script.lisp         |    8 ++++----
+  util.lisp                |    9 +++++++++
+  www/hunchentoot-doc.html |   31 +++++++++++++++----------------
+  15 files changed, 135 insertions(+), 83 deletions(-)
+
+ $ git checkout master
+ Switched to branch 'master'
+ Your branch is ahead of 'sebyte/master' by 11 commits.
+
+ Update both remote remote branches:
+
+ $ git push sebyte
+ Enter passphrase for key '/root/.ssh/id_rsa':
+ Counting objects: 50, done.
+ Delta compression using up to 4 threads.
+ Compressing objects: 100% (36/36), done.
+ Writing objects: 100% (36/36), 4.10 KiB, done.
+ Total 36 (delta 25), reused 0 (delta 0)
+ To git@github.com:sebyte/hunchentoot.git
+    2a888be..a9eb80c  master -> master
+    3b7fc7d..c775519  v1.2 -> v1.2

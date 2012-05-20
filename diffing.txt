@@ -2,7 +2,8 @@
 
 git diff is a complex command.
 
-Don't start at the top of the page, rather (gitman "diff" 744).
+Don't start at the top of the page.  Start at the 'Examples' section
+(gitman "diff" 648).
 
 Comparing branches
 ------------------

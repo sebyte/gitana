@@ -1,5 +1,12 @@
 -*- mode:hi-lock; eval: (highlight-regexp " \$.*" 'bold) -*-
 
+First of all, take note of this warning from the git-merge manpage:
+
+ Warning: Running git merge with uncommitted changes is discouraged. While
+ possible, it leaves you in a state that is hard to back out of in the case of a
+ conflict.
+
+
 Having spent a few days working in branch 'development', I decided it was time
 to have a go at preparing a new release, i.e., a merge of branch 'development'
 with branch 'production', followed by the creation of a new tag on branch

@@ -18,3 +18,73 @@ The first of these is very verbose.  The last two are concise.
  $ git shortlog            production..development
 
 Similarly, shortlog is more concise.
+
+Comapring repositories
+----------------------
+
+Comparing reposistories is really a case of comparing branches - one local & the
+other remote - but first you must fetch (don't pull!) the changes.
+
+ $ git fetch origin
+ $ git diff --name-status master origin/master
+ M	README
+ M	swiqlisp
+ M	swiqlisp-install
+ M	swiqlisp-sbcl
+ A	swiqlisp-slime-helper.el
+ D	swiqlisp-stanza
+ M	swiqlisp-uninstall
+ M	swiqlisp-utils
+ M	swiqlisp.lisp
+ M	swiqlisp.rc
+
+Or, even better (IMHO):
+
+ $ git diff --stat master origin/master
+ README                   |   65 +++++++++++++++-----
+ swiqlisp                 |  138 ++++++++++++++++++++++++++++++-------------
+ swiqlisp-install         |   70 ++++++++++++++++------
+ swiqlisp-sbcl            |    2 +-
+ swiqlisp-slime-helper.el |   61 +++++++++++++++++++
+ swiqlisp-stanza          |   87 ---------------------------
+ swiqlisp-uninstall       |   52 +++++++++++++---
+ swiqlisp-utils           |  148 ++++++++++++++++++++++++++++++++++------------
+ swiqlisp.lisp            |   59 +++++++++++++-----
+ swiqlisp.rc              |    9 +--
+ 10 files changed, 456 insertions(+), 235 deletions(-)
+
+Compare individual files like so:
+
+ $ git diff master:swiqlisp-sbcl origin/master:swiqlisp-sbcl
+ diff --git a/master:swiqlisp-sbcl b/origin/master:swiqlisp-sbcl
+ index 5b2a9d6..f9e1527 100644
+ --- a/master:swiqlisp-sbcl
+ +++ b/origin/master:swiqlisp-sbcl
+ @@ -18,7 +18,7 @@
+
+  # Commentary:
+  #
+ -#  SBCL-specific settings
+ +#  SBCL-specific settings.
+
+  #-----------------------------------------------------------------------------
+  # invocation string
+
+When your happy, merge like so:
+
+ $ git merge origin/master
+ Updating 979869d..90a0740
+ Fast-forward
+  README                   |   65 +++++++++++++++-----
+  swiqlisp                 |  138 ++++++++++++++++++++++++++++++-------------
+  swiqlisp-install         |   70 ++++++++++++++++------
+  swiqlisp-sbcl            |    2 +-
+  swiqlisp-slime-helper.el |   61 +++++++++++++++++++
+  swiqlisp-stanza          |   87 ---------------------------
+  swiqlisp-uninstall       |   52 +++++++++++++---
+  swiqlisp-utils           |  148 ++++++++++++++++++++++++++++++++++------------
+  swiqlisp.lisp            |   59 +++++++++++++-----
+  swiqlisp.rc              |    9 +--
+  10 files changed, 456 insertions(+), 235 deletions(-)
+  create mode 100644 swiqlisp-slime-helper.el
+  delete mode 100755 swiqlisp-stanza

@@ -12,8 +12,12 @@ Renaming a remote repository couldn't be much simpler either:
 
  $ git remote rename origin sebyte
 
+Names of remotes may even include forward slashes:
+
+ $ git remote rename sebyte github/sebyte
+
 One way to check the result is to issue the command:
 
- $ git config --list
+ $ git config --list | grep '^remote'
 
 Another way is simply to visit the file .git/config and see for yourself.

@@ -40,9 +40,9 @@ try again.
 
 
 [1] On closer inspection of (gitman "push" 75) I now understand this notation a
-    little better.  The general synopsis of git-push is:
+    little better.  The general synopsis of git push is:
 
-     git push [<options>] [<repository> [<refspec>...]]
+     git push [<options>] [<remote> [<refspec>...]]
 
     so in this case there are no options, 'origin' is the repository and
     ':master' is the refspec.

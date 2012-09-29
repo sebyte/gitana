@@ -8,11 +8,5 @@ or
 
  $ git push origin :testbranch
 
-One is syntactic sugar for the other.  The first form certainly makes clearer
-what's actually going on.
-
-This is definitely worth reading:
-
- http://stackoverflow.com/questions/2003505/how-do-i-delete-a-git-branch-both-locally-and-in-github
-
-a number of times until you've grokked it.
+See ./renaming-locally-and-remotely.txt for an explanation of the thinking
+behind the colon notation.

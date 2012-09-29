@@ -16,9 +16,8 @@ and to delete the remote remote branch, push the deleted local remote branch to
 your remote repository:
 
  $ git push origin :master
-
-not forgetting to precede the name of the deleted local remote branch with a
-colon. [1]
+                   ^
+Note: colon -------' [1]
 
 Branch 'master' in the remote repository has now been deleted and it only
 remains to push the renamed ordinary branch to the remote repository in order to
@@ -39,14 +38,27 @@ simple.  Click the 'Admin' button, select an alternative default branch and then
 try again.
 
 
-[1] On closer inspection of (gitman "push" 75) I now understand this notation a
-    little better.  The general synopsis of git push is:
+Note about the 'colon' notation used to delete remote remote branches
+---------------------------------------------------------------------
 
-     git push [<options>] [<remote> [<refspec>...]]
+The general syntax of git push is:
 
-    so in this case there are no options, 'origin' is the repository and
-    ':master' is the refspec.
+ $ git push [<options>] [<remote> [<refspec>...]]
 
-     git push --delete origin master
+where <refspec> can be of the form:
 
-    does the same thing (and makes what's going on a lot clearer IMHO).
+ [localbranch]:[remotebranch]
+
+When you exclude the [localbranch] portion and preserve the colon, you are in
+effect saying "Take nothing from [localbranch] and make it [remotebranch]".
+
+Alternatively:
+
+ $ git push --delete origin master
+
+does the same thing (and makes what's going on a lot clearer IMHO).
+
+References:
+
+ (gitman "push" 75)
+ http://stackoverflow.com/questions/2003505/how-do-i-delete-a-git-branch-both-locally-and-in-github

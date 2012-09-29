@@ -1,0 +1,46 @@
+-*- mode:hi-lock; eval: (highlight-regexp " \$.*" 'bold) -*-
+
+List all tgas (in current repo):
+
+ $ git tag [-l]
+ v1.1.0
+ v1.1.1
+
+A tag is not a branch, so how do you inspect tagged code?  Answer, with checkout:
+
+ $ git checkout v1.1.0
+ Note: checking out 'v1.1.0'.
+
+ You are in 'detached HEAD' state. You can look around, make experimental
+ changes and commit them, and you can discard any commits you make in this
+ state without impacting any branches by performing another checkout.
+
+ If you want to create a new branch to retain commits you create, you may
+ do so (now or later) by using -b with the checkout command again. Example:
+
+   git checkout -b new_branch_name
+
+ HEAD is now at acd9b19... release 1.1.0
+
+You can now compare this tag with the current state of master like so:
+
+ $ git diff --stat master
+ CHANGELOG      |    6 +-----
+ cl-who.asd     |    2 +-
+ doc/index.html |    2 +-
+ util.lisp      |    5 ++---
+ who.lisp       |    6 +-----
+ 5 files changed, 6 insertions(+), 15 deletions(-)
+
+You can even compare your current tag with another tag:
+
+ $ git diff --stat v1.1.1
+ CHANGELOG      |    6 +-----
+ cl-who.asd     |    2 +-
+ doc/index.html |    2 +-
+ util.lisp      |    5 ++---
+ who.lisp       |    6 +-----
+ 5 files changed, 6 insertions(+), 15 deletions(-)
+
+In this case the output is the same because there is no difference between
+master and v1.1.1.

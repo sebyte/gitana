@@ -1,0 +1,23 @@
+-*- mode:hi-lock; eval: (highlight-regexp " \$.*" 'bold) -*-
+
+ $ git ls-remote [options] [repo] [refs]
+
+is one of the few ways there are of querying the current state of play on a
+remote server.
+
+Without args it lists all references in the upstream remote of your current
+local branch.
+
+ $ git ls-remote .
+
+lists all local references.  [1]
+
+
+
+
+
+
+[1] I wonder how many people have this line in the [alias] section of their
+    ~/.gitconfig:
+
+     ls-local = ls-remote .

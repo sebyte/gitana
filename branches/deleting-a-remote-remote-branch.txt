@@ -8,5 +8,24 @@ or
 
  $ git push origin :testbranch
 
-See ./renaming-locally-and-remotely.txt for an explanation of the thinking
-behind the colon notation.
+See ./renaming-locally-and-remotely.txt for an explanation of colon notation.
+
+N.B.  When you call:
+
+ $ git branch -a
+
+The list of branches are all local (even the remote ones).  The situation on the
+remote server may be quite different.  If you get an error message that reads
+something like this:
+
+ error: unable to push to unqualified destination: <branch-name>
+ The destination refspec neither matches an existing ref on the remote nor
+ begins with refs/, and we are unable to guess a prefix based on the source ref.
+ error: failed to push some refs to 'git@github.com:<org>/<repo>.git'
+
+this is probably because you are trying to delete on the remote server a branch
+that no longer exists and all you really need to do is:
+
+ $ git branch -dr <branch>
+
+i.e. delete the remote branch locally.

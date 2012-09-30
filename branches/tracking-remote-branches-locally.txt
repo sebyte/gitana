@@ -1,14 +1,26 @@
 -*- mode:hi-lock; eval: (highlight-regexp " \$.*" 'bold) -*-
 
 I've been working in local branch 'development' (which tracks local remote
-branch 'origin/development') and I'd like to create (and switch to) a local
-branch 'production' (which tracks local remote branch 'origin/production').
-Here's how to do it:
+branch 'github/sebyte/development') and I'd like to create (and switch to) a
+local branch called production which tracks local remote branch
+github/sebyte/production.
 
- $ git checkout --track origin/production
+Here's one way to do it:
 
-Here, the name of the new branch is based on the name of the local remote
-('production').  To give your local branch a different name git checkout must be
-called like this instead:
+ $ git checkout --track github/sebyte/production
 
- $ git checkout --track -b prod origin/production
+This creates a new local branch which tracks the remote branch
+github/sebyte/production but the name of the new local branch
+(sebyte/production) has been chosen for me (by stripping the first path element
+from the name of the remote branch).  I must now call git a second time:
+
+ $ git branch -m sebyte/production production
+
+in order to give my new local branch a name I like.
+
+In order to avoid having to rename the local branch, all you have to do is call
+git checkout like this instead:
+
+ $ git checkout --track -b production github/sebyte/production
+
+ N.B. --track must precede -b on the command line.

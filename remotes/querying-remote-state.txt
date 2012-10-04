@@ -2,18 +2,21 @@
 
  $ git ls-remote [options] [repo] [refs]
 
-is one of the few ways there are of querying the current state of play on a
-remote server.
+is one of the few ways there are of querying the current state of play of a
+remote repository.
 
-Without args it lists all references in the upstream remote of your current
-local branch.
+Without args, it will list the refs from the remote repo your current branch
+tracks.
+
+ $ git ls-remote
+
+Given a repo argument, it will list the refs from that remote repo instead:
+
+ $ git ls-remote edicl/hunchentoot
+
+Given a repo argument of `.', it will list all local refs. [1]
 
  $ git ls-remote .
-
-lists all local references.  [1]
-
-
-
 
 
 

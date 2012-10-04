@@ -1,0 +1,48 @@
+-*- mode:hi-lock; eval: (highlight-regexp " \$.*" 'bold) -*-
+
+git's diff command follows the standard <old> <new> convention.
+
+ $ git log
+ [...]
+ commit 8957ebdbeba05f18339cc5fec4a8c1aaea7d15af
+ Author: Hans Huebner <hans.huebner@gmail.com>
+ Date:   Tue Sep 4 19:21:39 2012 -0400
+
+     Fix problems with declaration processing (Stas Boukarev)
+
+ commit acd9b193bd9cff7c9721115406ed361086254738
+ [...]
+
+ $ git diff acd9b1 8957eb
+ diff --git a/util.lisp b/util.lisp
+ index 717aa7c..f2b0993 100644
+ --- a/util.lisp
+ +++ b/util.lisp
+ @@ -235,6 +235,7 @@ character set."
+    (loop with declarations
+	  for forms on forms
+	  for form = (first forms)
+ -        while (eql (first form) 'cl:declare)
+ +        while (and (consp form)
+ +                   (eql (first form) 'cl:declare))
+	  do (push form declarations)
+ -        finally (return (values (nreverse declarations) forms))))
+ \ No newline at end of file
+ +        finally (return (values (nreverse declarations) forms))))
+ diff --git a/who.lisp b/who.lisp
+ index a512f94..93da604 100644
+ --- a/who.lisp
+ +++ b/who.lisp
+ @@ -189,7 +189,11 @@ flattened list of strings. Utility function used by TREE-TO-COMMANDS-AUX."
+	  nconc (process-tag element #'tree-to-template)
+	  ;; list - insert as sexp
+	  else if (consp element)
+ -        collect `(let ((*indent* ,*indent*)) ,element)
+ +        collect `(let ((*indent* ,*indent*))
+ +                   nil ;; If the element is (declare ...) it
+ +                       ;; won't be interpreted as a declaration and an
+ +                       ;; appropriate error could be signaled
+ +                   ,element)
+	  ;; something else - insert verbatim
+	  else
+	  collect element))

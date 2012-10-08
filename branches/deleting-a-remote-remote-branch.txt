@@ -23,7 +23,7 @@ something like this:
  begins with refs/, and we are unable to guess a prefix based on the source ref.
  error: failed to push some refs to 'git@github.com:<org>/<repo>.git'
 
-this is probably because you are trying to delete on the remote server a branch
+this is probably because you are trying to delete a branch on the remote server
 that no longer exists and all you really need to do is:
 
  $ git branch -dr <branch>

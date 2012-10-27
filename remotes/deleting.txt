@@ -1,0 +1,5 @@
+-*- mode:hi-lock; eval: (highlight-regexp " \$.*" 'bold) -*-
+
+* rm
+
+ $ git remote rm <remote-name>

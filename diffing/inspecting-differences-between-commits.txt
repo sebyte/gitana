@@ -46,3 +46,10 @@ git's diff command follows the standard <old> <new> convention.
 	  ;; something else - insert verbatim
 	  else
 	  collect element))
+
+You may also use the '..' notation:
+
+ $ git diff <commit>..<commit> path
+
+This has the advantage of allowing you to leave out one <commit> as a way of
+indicating that you want to diff the remaining <commit> with HEAD.

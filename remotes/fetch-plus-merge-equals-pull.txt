@@ -42,7 +42,7 @@ A status check tells us that we're not up to speed:
 
 What's all this about 'fast-forwarding'?
 
-Well, best see the section NOTE ABOUT FAST-FORWARDS in (gitman "push").
+Well, best see the section NOTE ABOUT FAST-FORWARDS in (gitman "push" 341).
 
 The bottom of this page:
 

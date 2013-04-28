@@ -36,8 +36,6 @@ or change the default branch, like so:
 
  $ git remote set-head github/sebyte development
 
-
-
 From the git-remote manpage:
 
  "set-head

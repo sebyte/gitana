@@ -8,9 +8,8 @@ First of all, take note of this warning from the git-merge manpage:
 
 
 Having spent a few days working in branch 'development', I decided it was time
-to have a go at preparing a new release, i.e., a merge of branch 'development'
-with branch 'production', followed by the creation of a new tag on branch
-'production'.
+to have a go at preparing a new release, i.e. merge the 'development' branch
+into 'production' and then create a new tag on the 'production' branch.
 
  $ git checkout production
  Switched to branch 'production'

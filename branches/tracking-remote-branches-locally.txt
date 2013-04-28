@@ -1,5 +1,6 @@
 -*- mode:hi-lock; eval: (highlight-regexp " \$.*" 'bold) -*-
 
+
 I've been working in local branch 'development' (which tracks local remote
 branch 'github/sebyte/development') and I'd like to create (and switch to) a
 local branch called production which tracks local remote branch

@@ -1,17 +1,28 @@
--*- mode:hi-lock; eval: (highlight-regexp " \$.*" 'bold) -*-
+-*- mode:hi-lock; eval: (highlight-regexp " \$.*" 'bold); mode:outline -*-
+
+* the git directory
 
 Every subdirectory in a Subversion working copy has its own .svn/ subdirectory
 whereas git working copies have just one .git/ subdirectory (at the top level)
 and no more.
 
+* all files in a git tree are in one of three states
+
+  1. untracked (git only knows that they exist)
+
+  2. staged (new files that are about to be committed)
+
+ 3a. tracked, modified (changes are either staged, unstaged or both)
+ 3b. tracked, unmodified
 
 Files are either untracked, staged or tracked.  git knows nothing about
-untracked files (except that they exist).  Staged files are by definition new
-files, i.e., files that are about to be committed for the first time.  And
-tracked files are files which have already been committed and are therefore
-either unmodified or modified, in which case they contain staged or unstaged
-changes (or both).
+untracked files (except that they exist).  Staged whole files (as opposed to
+staged changes) are by definition new files, i.e. files which are about to be
+committed for the first time.  Tracked files are files which have already been
+committed and are therefore either unmodified or modified, in which case they
+contain staged or unstaged changes (or both).
 
+* ignoring Emacs auto-save files
 
 All Emacs users should add the following to their ~/.gitconfig:
 
@@ -24,3 +35,30 @@ and their ~/.gitexcludes file should read:
  .#*
 
 (without the single space indentation).
+
+* empty directories
+
+** in short
+
+git ignores empty directories.
+
+However, there are workarounds for this shortcoming if you need an empty
+directory in your tree:
+
+ http://stackoverflow.com/questions/11600871/git-repo-contains-an-empty-directory-what-happens
+
+** more precisely
+
+git's handling of new empty directories is somewhat idiosyncratic.
+
+ • Create an empty directory and run `git status', there's no mention of the
+   empty directory.
+
+ • Create two files (A & B) under your new directory and run `git status' again,
+   you see the directory (listed as untracked) but no mention of either file.
+
+ • Stage file A and run `git status' for a third time, you see both files
+   mentioned; file A as staged, file B as untracked.
+
+ • Stage the directory itself, file A and file B are both staged and nothing is
+   left untracked.

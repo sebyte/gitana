@@ -1,19 +1,18 @@
 -*- mode:hi-lock; eval: (highlight-regexp " \$.*" 'bold) -*-
 
-For example, edicl/hunchentoot.
+For example, hunchentoot lives in edicl/hunchentoot (on Github).  I've created
+my own fork sebyte/hunchentoot (on Github) and created a local clone (of my
+fork).
 
-I have my own fork; sebyte/hunchentoot.
+How do I bring my fork up-to-date with edicl's?  Answer, via the local clone of
+my fork:
 
-How do I bring my fork up-to-date with edicl's?
+ $ git pull github/edicl master
 
-Answer, via a local clone of my fork:
+ $ git push github/sebyte
 
- $ git pull edicl master
-
- $ git push sebyte
-
-These two commands assume 'edicl' and 'sebyte' are properly configured remotes
-in the local clone.
+These two commands assume 'github/edicl' and 'github/sebyte' are properly
+configured remotes in the local clone.
 
 
 A more verbose example:
@@ -21,14 +20,14 @@ A more verbose example:
  $ git checkout master
  Switched to branch 'master'
 
- $ git fetch --verbose edicl
+ $ git fetch --verbose github/edicl
  Enter passphrase for key '/root/.ssh/id_rsa':
  From github.com:edicl/hunchentoot
     fa088b0..a9eb80c  master     -> edicl/master
     fa088b0..c775519  v1.2       -> edicl/v1.2
   * [new tag]         v1.2.3     -> v1.2.3
 
- $ git merge edicl/master
+ $ git merge github/edicl/master
  Updating 2a888be..a9eb80c
  Fast-forward
   CHANGELOG                |    4 ++++
@@ -44,7 +43,7 @@ A more verbose example:
  $ git checkout v1.2
  Switched to branch 'v1.2'
 
- $ git merge edicl/v1.2
+ $ git merge github/edicl/v1.2
  Updating 3b7fc7d..c775519
  Fast-forward
   CHANGELOG                |   34 +++++++++++++++++++++++-----------

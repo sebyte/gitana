@@ -1,0 +1,18 @@
+-*- mode:hi-lock; eval: (highlight-regexp " \$.*" 'bold); mode:outline -*-
+
+* overview
+
+`git branch' is a comparatively simple git command.  It is used to inspect,
+rename, delete or create branches.  Inspecting, renaming and deleting branches
+is in most cases trivial, but creating branches requires some thought.
+
+Creating a branch is all about the 'start point'.  The command:
+
+ $ git branch testbranch
+
+is really shorthand for:
+
+ $ git branch testbranch HEAD
+
+where HEAD is the tip of the current (local) branch.  This becomes the start
+point for testbranch.

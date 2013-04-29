@@ -1,5 +1,155 @@
 -*- mode:hi-lock; eval: (highlight-regexp " \$.*" 'bold) -*-
 
+First of all, what remotes are there?
+
+ $ git remote [show]
+ github/sebyte
+
+ If there were more remotes defined, they would be listed above.
+
+ $ git remote -v [show]
+ github/sebyte	git@github.com:sebyte/hunchentoot.git (fetch)
+ github/sebyte	git@github.com:sebyte/hunchentoot.git (push)
+
+Inspecting individual remotes.
+
+http://git-scm.com/book/en/Git-Basics-Working-with-Remotes#Inspecting-a-Remote
+
+ $ git remote show github/sebyte
+ * remote github/sebyte
+   Fetch URL: git@github.com:sebyte/hunchentoot.git
+   Push  URL: git@github.com:sebyte/hunchentoot.git
+   HEAD branch: master
+   Remote branches:
+     master tracked
+     sebyte new (next fetch will store in remotes/github/sebyte)
+   Local branch configured for 'git pull':
+     master merges with remote master
+   Local ref configured for 'git push':
+     master pushes to master (local out of date)
+
+You may specify multiple remotes (or named groups) with `git remote show'.  The
+`*' simply indicates where the output for each queried remote begins.
+
+With Subversion, very often the first command I run is `svn status -u' to see
+what's happened in the central repo while I've been away.  There's no single
+command in git which does this. `git remote show <remote>' will tell you quite a
+lot (in this case that there's a new branch; sebyte, and that master is out of
+date) but it won't tell you which files have changed.  For that you have to
+update your remote branch and then inspect the log.
+
+ http://stackoverflow.com/questions/1138990/git-equivalent-of-svn-status-u
+
+There are two ways of updating remotes. `git remote update' and `git fetch'.
+
+ $ git remote update		# new repo (gitana)
+ Fetching github/sebyte
+ remote: Counting objects: 12, done.
+ remote: Compressing objects: 100% (4/4), done.
+ remote: Total 8 (delta 5), reused 7 (delta 4)
+ Unpacking objects: 100% (8/8), done.
+ From github.com:sebyte/gitana
+    c0d3338..f17d3f3  development -> github/sebyte/development
+
+Without the --verbose option, the output occludes details about objects, deltas
+and up-to-date branches (in this case, production).
+
+How does `git remote update' differ from `git fetch'?
+
+According to Jefromi on http://stackoverflow.com/questions/2688251/what-is-the-difference-between-git-fetch-origin-and-git-remote-update-origin:
+
+ `git remote update' is a very high-level command - it supports grouped remotes
+ (remotes.<group> = <list>), and updating all remotes (except those with
+ remote.<name>.skipDefaultUpdate set), but not any of the more specific options
+ of `git fetch'. Under the hood, though, it does the exact same thing as fetch
+ with the default options.
+
+In short, `git remote update' without arguments does exactly the same thing as
+`git fetch --all'.
+
+`git fetch' has a --dry-run option which means that it can also be used to query
+remote state (instead of `git remote show <remote>') whereas `git remote update'
+has no such option. (`git remote prune' does have a --dry-run option).
+
+So having updated the remote, how do I see what files have changed?
+
+Well, first of all, it's often a good idea to think about branches at this point:
+
+ $ git branch --verbose --all		# new rep (gitana)
+ * development                       f17d3f3 [behind 4] Added note about '..' notation.
+   production                        1128d4a Diffing deserves its own directory.
+   remotes/github/sebyte/development 377ead2 Minor edits.
+   remotes/github/sebyte/production  1128d4a Diffing deserves its own directory.
+
+This tells us that we are on the development branch and that we are behind the
+tracked remote by 4 commits.  Note that commit f17d3f3 (HEAD of the current
+branch) matches the right hand side of the commit range mentioned in the output
+of the `git remote update' command (above).
+
+At this point, you can also see how far behind you are by issuing a `git status'
+comand:
+
+ $ git status
+ # On branch development
+ # Your branch is behind 'github/sebyte/development' by 4 commits, and can be fast-forwarded.
+ #
+ [...]
+
+but it doesn't identify commits by number (for want of a better word).  However,
+it does give us a piece of useful information that we can't get from `git
+branch' or `git log' (below).  It tells us that the current branch can be
+fast-forwarded which "ultimately [...] means that the commits can be applied
+directly on top of the working tree without requiring a merge."[1]
+
+Anyway, back to the program, and let's finally see what files these commits
+affect:
+
+ $ git log --oneline --name-status --decorate=full ..github/sebyte/development
+ 377ead2 (refs/remotes/github/sebyte/development) Minor edits.
+ M	branches/merging.txt
+ M	branches/tracking-remote-branches-locally.txt
+ M	remotes/default-remote-branches.txt
+ M	remotes/fetch-plus-merge-equals-pull.txt
+ b53811e Empty directories grokked.
+ M	misc.txt
+ 8dab798 First per-command notes file started with an overview (of git branch).
+ A	commands/git-branch.txt
+ c09f4dd Remote names updated.  Nothing new.
+ M	branches/updating-a-github-fork.txt
+
+ The --decorate=full option causes the symbolic reference
+ (refs/remotes/github/sebyte/development) to be displayed.
+
+Thanks to the `git status' command, we know we're about to fast-forward so
+there's actually no need to study the `git log' output too closely.  `git merge'
+will always abort when there are local uncommitted changes (staged or unstaged)
+to tracked files that `git merge' would otherwise directly update.  If we
+weren't about to fast-forward, it would be foolish not to either commit or stash
+any local changes to tracked files[2] since merge conflict resolution tools may
+not exercise the same degree of caution.
+
+ $ git merge --verbose github/sebyte/development
+ Updating f17d3f3..377ead2
+ Fast-forward
+  branches/merging.txt                          |    5 ++---
+  branches/tracking-remote-branches-locally.txt |    1 +
+  branches/updating-a-github-fork.txt           |   25 ++++++++++-----------
+  commands/git-branch.txt                       |   18 +++++++++++++++
+  misc.txt                                      |   50 ++++++++++++++++++++++++++++++++++++-----
+  remotes/default-remote-branches.txt           |    2 --
+  remotes/fetch-plus-merge-equals-pull.txt      |    2 +-
+  7 files changed, 78 insertions(+), 25 deletions(-)
+  create mode 100644 commands/git-branch.txt
+
+
+[1] http://stackoverflow.com/questions/4684352/whats-a-fast-forward-in-git
+[2] (gitman "merge" 162)
+
+
+
+References (refs for short)
+===========================
+
  $ git ls-remote [options] [repo] [refs]
 
 is one of the few ways there are of querying the current state of play of a
@@ -14,13 +164,12 @@ Given a repo argument, it will list the refs from that remote repo instead:
 
  $ git ls-remote edicl/hunchentoot
 
-Given a repo argument of `.', it will list all local refs. [1]
+Given a repo argument of `.', it will list all local refs. [3]
 
  $ git ls-remote .
 
 
 
-[1] I wonder how many people have this line in the [alias] section of their
-    ~/.gitconfig:
+[3] The following git alias is defined in my ~/.gitconfig:
 
      ls-local = ls-remote .

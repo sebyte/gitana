@@ -95,9 +95,9 @@ comand:
  #
  [...]
 
-but it doesn't identify commits by number (for want of a better word).  However,
-it does give us a piece of useful information that we can't get from `git
-branch' or `git log' (below).  It tells us that the current branch can be
+but it doesn't identify commits by their abbreviated SHA1 object names.
+However, it does give us a piece of useful information that we can't get from
+`git branch' or `git log' (below).  It tells us that the current branch can be
 fast-forwarded which "ultimately [...] means that the commits can be applied
 directly on top of the working tree without requiring a merge."[1]
 

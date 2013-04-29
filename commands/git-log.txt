@@ -1,0 +1,33 @@
+-*- mode:hi-lock; eval: (highlight-regexp " \$.*" 'bold); mode:outline -*-
+
+In this example, the production branch is behind the development branch:
+
+ $ git checkout development
+ $ git log --oneline --decorate=full production^..HEAD
+ 6775b7b (HEAD, refs/heads/development) Proper terminilogy ('SHA1 object names' rather than 'numbers').
+ dff3ae3 (refs/remotes/github/sebyte/development) Comprehensive treatment on duplicating `svn status -u'.
+ [...]
+ 1128d4a (refs/remotes/github/sebyte/production, refs/heads/production) Diffing deserves its own directory.
+
+ $ git checkout production
+ $ git log --oneline --decorate=full HEAD^..development
+ 6775b7b (refs/heads/development) Proper terminilogy ('SHA1 object names' rather than 'numbers').
+ dff3ae3 (refs/remotes/github/sebyte/development) Comprehensive treatment on duplicating `svn status -u'.
+ [...]
+ 1128d4a (HEAD, refs/remotes/github/sebyte/production, refs/heads/production) Diffing deserves its own directory.
+
+I'm only interested in the refs (included thanks to --decorate=full) so I've
+elided lines which don't mention any.
+
+The output of both commands is intentionally more or less identical.  However,
+it shows:
+
+ • how to ensure that certain commits are included[1] (when labouring under an
+   off-by-one thinko)
+
+ • how HEAD moves when you switch branches
+
+ • that development is ahead of its remote tracking branch by one commit
+
+
+[1] The `^' specifies the ancestor of the named ref.

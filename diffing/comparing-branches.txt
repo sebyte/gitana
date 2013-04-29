@@ -1,40 +1,5 @@
 -*- mode:hi-lock; eval: (highlight-regexp " \$.*" 'bold) -*-
 
-These notes are stacked, i.e. the nearer the bottom the older the note.  Notes
-are separated by page feeds.
-
-In this example, the production is behind the development branch:
-
- $ git checkout development
- $ git log --oneline --decorate=full production^..HEAD
- 6775b7b (HEAD, refs/heads/development) Proper terminilogy ('SHA1 object names' rather than 'numbers').
- dff3ae3 (refs/remotes/github/sebyte/development) Comprehensive treatment on duplicating `svn status -u'.
- [...]
- 1128d4a (refs/remotes/github/sebyte/production, refs/heads/production) Diffing deserves its own directory.
-
- $ git checkout production
- $ git log --oneline --decorate=full HEAD^..development
- 6775b7b (refs/heads/development) Proper terminilogy ('SHA1 object names' rather than 'numbers').
- dff3ae3 (refs/remotes/github/sebyte/development) Comprehensive treatment on duplicating `svn status -u'.
- [...]
- 1128d4a (HEAD, refs/remotes/github/sebyte/production, refs/heads/production) Diffing deserves its own directory.
-
-I'm only interested in the refs (included thanks to --decorate=full) so I've
-elided lines which don't mention them.
-
-It shows:
-
- • how to ensure that commits are included (when labouring under an off-by-one
-   thinko)
-
- • how HEAD moves when you switch branches
-
- • that development is ahead of its remote tracking branch by one commit
-
-The `^' specifies the ancestor of the named ref.
-
-
-
 git diff is a complex command.
 
 Don't start at the top of the page.  Start at the 'Examples' section
@@ -54,7 +19,7 @@ The first of these is very verbose.  The last two are concise.
 
 Similarly, shortlog is more concise.
 
-Comapring repositories
+Comparing repositories
 ----------------------
 
 Comparing reposistories is really a case of comparing branches - one local & the

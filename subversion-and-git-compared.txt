@@ -1,0 +1,33 @@
+-*- mode:hi-lock; eval: (highlight-regexp " \$.*" 'bold) -*-
+
+An interesting discussion on the git equivalent of the Subversion command:
+
+ `svn status -u'
+
+  http://stackoverflow.com/questions/1138990/git-equivalent-of-svn-status-u
+
+In short, you must update your local remotes (with `git remote update' or `git
+fetch') and then issue a `git log' command.  However this is not a complete
+equivalent since `svn status -u' displays information on local and remote
+changes *combined*.
+
+   Subversion					git
+   ----------					---
+ 1 centralised					distributed
+
+ 2 `svn commit'					`git add' & `git push' combined
+
+ 3 `svn checkout'				`git clone'
+
+
+ Notes
+ -----
+
+ 1 This is the critical difference.  Each repository has the capacity to act as
+   the central repository (hence `git clone').  In other words, a git repository
+   is "central" by social convention only, not by technical limitation.
+
+ 2 When issued the command `svn commit', Subversion checks the central
+   repository first to see whether any of the files to be committed are
+   out-of-date.  Even if the changes would not conflict, the entire commit will
+   fail if a single out-of-date file is included in the commit.

@@ -1,5 +1,26 @@
 -*- mode:hi-lock; eval: (highlight-regexp " \$.*" 'bold); mode:outline -*-
 
+In this example, I want to look at a specific log entry
+
+ $ git-log --oneline -10
+ 592ff6d (HEAD, refs/remotes/origin/master, refs/remotes/origin/HEAD, refs/heads/master) doc/bbdb.texi: Add @dircategory and @direntry
+ 65dfccf m4/package_date.m4: Use more robust output redirection
+ c57e073 m4/emacs_vm.m4: Fix typo
+ 6058831 m4/emacs_vm.m4: Define mconditional VM unconditionally
+ 03fb7a8 Further clean up of autoconf
+ 2f1ef48 Clean up usage of automake and autoconf
+ eaba4d7 INSTALL: fix typos
+ f6a9dd3 INSTALL: fix typo
+ 8052478 Use Automake
+ d5105a0 bbdb-mua-auto-update: Use bbdb-pop-up-layout
+
+Perhaps surprisingly `git-log 8052478' doesn't work, so use:
+
+ $ git show 8052478 --[short]stat
+
+instead.
+
+
 In this example, the production branch is behind the development branch:
 
  $ git checkout development
@@ -28,6 +49,5 @@ it shows:
  • how HEAD moves when you switch branches
 
  • that development is ahead of its remote tracking branch by one commit
-
 
 [1] The `^' specifies the ancestor of the named ref.

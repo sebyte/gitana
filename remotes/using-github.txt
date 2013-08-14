@@ -1,22 +1,154 @@
-Contributing to github hosted projects as a non-collaborator, i.e., without
-write permission in the upstream repository.
+-*- mode:hi-lock; eval: (highlight-regexp " \$.*" 'bold) -*-
 
- 1. Fork the repo in github.
+When fetching updates from an upstream remote repository, it's important to
+either:
 
- 2. Checkout a working copy of your fork.
+ $ git pull --rebase <upstream-remote>
 
- 3. Push the changes (to your fork) to github.
+or
 
- 4. Issue a github pull request.
+ $ git fetch <upstream-remote>
+ $ git checkout master
+ $ git rebase <upstream-remote>/master
 
- [Pull request is accepted and merged]
+If you don't do this and use `git merge' instead, you will end up with merge
+commits in local branch master which will pollute all future pull requests.
 
- 5. Add the upstream repo as as remote.
+For example, I wanted to make a small change to function
+TBNL:MAYBE-READ-POST-PARAMETERS in file request.lisp, so I performed the
+following actions.
 
- 6. Pull from upstream remote.
+ 1.  Bring local branch master up-to-date by fetching from upstream remote
+     (github/edicl).
 
- [Your working copy includes your changes and is now up-to-date with upstream]
+ 2.  Merge upstream remote branch master into local branch master.
 
- 7. Push to your github fork.
+ 3.  Create local branch sebyte.
 
- [Your github fork is now up-to-date with upstream too]
+ 4.  Modify request.lisp and commit.
+
+ 5.  Push new local branch sebyte to my upstream fork remote (github/sebyte).
+
+ 6.  Local branch sebyte should have been called mrpp-fix, or something.
+
+I then issued the pull request and found, to my surprise, that the pull request
+inlcuded two unwanted merge commits:
+
+  sebyte  Merge branch 'master', remote branch 'github/edicl/master'      36f52df
+  sebyte  Merge branch 'master', remote branch 'github/edicl/master'      622cc42
+  sebyte  Modified function: TBNL:MAYBE-READ-POST-PARAMETERS …            9abf852
+
+I compared the history of remote upstream branch master (github/edicl/master)
+with remote upstream-fork branch sebyte (github/sebyte/sebyte) and sure enough,
+there they were:
+
+ [master*]$ git log --oneline ^github/edicl/master github/sebyte/sebyte
+ * 9abf852 Modified function: TBNL:MAYBE-READ-POST-PARAMETERS
+ * 622cc42 Merge branch 'master', remote branch 'github/edicl/master'
+ * 36f52df Merge branch 'master', remote branch 'github/edicl/master'
+
+They were introduced into local branch master some time ago when merging
+upstream changes, so when I created local branch sebyte they became part of that
+branch too and found their way to remote branch github/sebyte/sebyte. [1]
+
+However, removing these unwanted commits is actually quite easy, although my
+thinking is still far from clear.
+
+At this point I decided to fetch upstream changes and incorporate them into
+local branch master using `git rebase':
+
+ [master*]$ git fetch --verbose github/edicl
+ Fetching github/edicl
+ remote: Counting objects: 37, done.
+ remote: Compressing objects: 100% (15/15), done.
+ remote: Total 26 (delta 20), reused 17 (delta 11)
+ Unpacking objects: 100% (26/26), done.
+ From github.com:edicl/hunchentoot
+  = [up to date]      clix-docstrings -> github/edicl/clix-docstrings
+    4e290d7..c193423  master     -> github/edicl/master
+  = [up to date]      v1.2       -> github/edicl/v1.2
+  * [new tag]         v1.2.19    -> v1.2.19
+ From github.com:edicl/hunchentoot
+  * [new tag]         v1.2.18    -> v1.2.18
+
+ [master*]$ git rebase github/edicl/master
+ First, rewinding head to replay your work on top of it...
+
+ [master*]$ git status
+ # On branch master
+ # Your branch and 'github/sebyte/master' have diverged,
+ # and have 7 and 2 different commits each, respectively.
+ [...]
+
+This makes sense.  The 7 commits exclusive to local branch master are the
+updates I just fetched and the 2 commits exclusive to remote upstream fork
+branch master are the merge commits I just blitzed by rebasing.  But what about
+local branch sebyte?
+
+ [master*]$ git log --oneline ..sebyte
+ * 9abf852  Modified function: TBNL:MAYBE-READ-POST-PARAMETERS
+ * 622cc42  Merge branch 'master', remote branch 'github/edicl/master'
+ * 36f52df Merge branch 'master', remote branch 'github/edicl/master'
+
+ So let's get rid of them on sebyte too:
+
+ [master*]$ git checkout sebyte
+ [sebyte*]$ git rebase -i HEAD~3     # removed the only merge commit listed
+ Waiting for Emacs...
+ Successfully rebased and updated refs/heads/sebyte.
+
+ [sebyte*]$ git status
+ # On branch sebyte
+ # Your branch and 'github/sebyte/sebyte' have diverged,
+ # and have 1 and 3 different commits each, respectively.
+ [...]
+
+ Let's look at local branch sebyte (compared with local branch master):
+
+ [sebyte*]$ git log --oneline master..
+ * f93a0e7 (HEAD, refs/heads/sebyte) Modified function: TBNL:MAYBE-READ-POST-PARAMETERS
+
+That's better.  The 1 commit exclusive to local branch sebyte is a new commit
+incorporating my changes (the old one was 9abf852) and the 3 commits exclusive
+to remote upstream fork branch sebyte are the original three offenders.
+
+ [sebyte*]$ git log --oneline ..github/sebyte/sebyte
+ * 9abf852 Modified function: TBNL:MAYBE-READ-POST-PARAMETERS
+ * 622cc42  Merge branch 'master', remote branch 'github/edicl/master'
+ * 36f52df Merge branch 'master', remote branch 'github/edicl/master'
+
+At this point it only remained for me to push the changes to my git branch
+histories to my remote upstream fork:
+
+ [sebyte*]$ git push github/sebyte
+ To git@github.com:sebyte/hunchentoot.git
+  ! [rejected]        master -> master (non-fast-forward)
+  ! [rejected]        sebyte -> sebyte (non-fast-forward)
+ error: failed to push some refs to 'git@github.com:sebyte/hunchentoot.git'
+ hint: Updates were rejected because the tip of your current branch is behind
+ hint: its remote counterpart. Merge the remote changes (e.g. 'git pull')
+ hint: before pushing again.
+ hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+
+Of course, there are now (unwanted) commits exclusive to my remote upstream fork,
+but git doesn't know that they're unwanted so it thinks I'm behind.
+
+ [sebyte*]$ git push --force github/sebyte
+ Counting objects: 40, done.
+ Delta compression using up to 4 threads.
+ Compressing objects: 100% (29/29), done.
+ Writing objects: 100% (29/29), 3.17 KiB, done.
+ Total 29 (delta 23), reused 0 (delta 0)
+ To git@github.com:sebyte/hunchentoot.git
+  + 622cc42...c193423 master -> master (forced update)
+  + 9abf852...f93a0e7 sebyte -> sebyte (forced update)
+
+Finally, I visited the github pull request that started this line of enquiry,
+and sure enough the unwanted merge commits (and the old, wanted commit) were
+gone.  My shiny new commit is/was quietly taking their place.
+
+Phew!  It took me hours to grok all that, but it was worth it.
+
+[1] This is why the merge commits can only be isolated by comparing local or
+    remote branch sebyte with remote branch github/edicl/master (not local
+    branch master).

@@ -1,8 +1,45 @@
--*- mode:hi-lock; eval: (highlight-regexp " \$.*" 'bold); mode:outline -*-
+-*- mode:hi-lock; eval: (highlight-regexp "\$.*" 'bold); mode:outline -*-
 
-In this example, I want to look at a specific log entry
+* A visual representation of one branch in relation to another
 
- $ git-log --oneline -10
+ [master]# git branch --verbose
+ * master c193423 release 1.2.19
+   sebyte f93a0e7 Modified function: TBNL:MAYBE-READ-POST-PARAMETERS
+
+ [master]# git merge-base master sebyte
+ 4e290d7154c63ef3e5d3a92a455d7b10bae6a0ae
+
+ [master]$ git log --oneline --graph 4e290d7^.. sebyte
+ * f93a0e7 Modified function: TBNL:MAYBE-READ-POST-PARAMETERS
+ | * c193423 release 1.2.19
+ | * 9aead0c fix acceptor-remove-session
+ | * c7feab5 report failing content-type header to log file
+ | * 79edb6a release 1.2.18
+ | * f15734c prepare for release 1.2.18
+ | * 6f22f3e fix for lispworks, contributed by Raymond Wiker
+ | * c7c921f Prevent errors when basic auth user or password contains colon
+ |/
+ * 4e290d7 release 1.2.17
+
+--simplify-by-decoration elides entries which are not refs.
+
+ [master]$ git log --oneline --graph --simplify-by-decoration 4e290d7^.. sebyte
+ * f93a0e7 Modified function: TBNL:MAYBE-READ-POST-PARAMETERS
+ | * c193423 release 1.2.19
+ | * 79edb6a release 1.2.18
+ |/
+ * 4e290d7 release 1.2.17
+
+ [master]$ git show-ref --abbrev | egrep f93a0e7\|c193423\|79edb6a\|4e290d7 | grep -v remotes
+ c193423 refs/heads/master
+ f93a0e7 refs/heads/sebyte
+ 4e290d7 refs/tags/v1.2.17
+ 79edb6a refs/tags/v1.2.18
+ c193423 refs/tags/v1.2.19
+
+* Specific log entries
+
+ $ git-log --oneline --decorate=full -10
  592ff6d (HEAD, refs/remotes/origin/master, refs/remotes/origin/HEAD, refs/heads/master) doc/bbdb.texi: Add @dircategory and @direntry
  65dfccf m4/package_date.m4: Use more robust output redirection
  c57e073 m4/emacs_vm.m4: Fix typo
@@ -14,14 +51,19 @@ In this example, I want to look at a specific log entry
  8052478 Use Automake
  d5105a0 bbdb-mua-auto-update: Use bbdb-pop-up-layout
 
-Perhaps surprisingly `git-log 8052478' doesn't work, so use:
+Perhaps surprisingly `git-log 8052478' doesn't work as expected, so use:
 
- $ git show 8052478 --[short]stat
+ $ git show 8052478 [--[short]stat]
 
 instead.
 
-
-In this example, the production branch is behind the development branch:
+
+* Example use of the <since>..<until> syntax
+
+'since' and 'until' doesn't tell the whole story.  See section `Specifying
+Ranges' in (woman "gitrevisions").
+
+N.B. Local branch production is behind local branch development.
 
  $ git checkout development
  $ git log --oneline --decorate=full production^..HEAD

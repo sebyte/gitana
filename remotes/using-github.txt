@@ -1,4 +1,4 @@
--*- mode:hi-lock; eval: (highlight-regexp " \$.*" 'bold) -*-
+-*- mode:hi-lock; eval: (highlight-regexp "\$.*" 'bold) -*-
 
 When fetching updates from an upstream remote repository, it's important to
 either:

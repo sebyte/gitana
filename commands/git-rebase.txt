@@ -1,3 +1,3 @@
--*- mode:hi-lock; eval: (highlight-regexp " \$.*" 'bold); mode:outline -*-
+-*- mode:hi-lock; eval: (highlight-regexp "\$.*" 'bold); mode:outline -*-
 
 See ../remotes/using-github.txt.

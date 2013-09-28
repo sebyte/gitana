@@ -1,4 +1,4 @@
--*- mode:hi-lock; eval: (highlight-regexp " \$.*" 'bold) -*-
+-*- mode:hi-lock; eval: (highlight-regexp "\$.*" 'bold) -*-
 
 First of all, take note of this warning from the git-merge manpage:
 

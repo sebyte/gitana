@@ -1,4 +1,4 @@
--*- mode:hi-lock; eval: (highlight-regexp " \$.*" 'bold) -*-
+-*- mode:hi-lock; eval: (highlight-regexp "\$.*" 'bold) -*-
 
 Renaming an ordinary branch is as simple as:
 
@@ -16,7 +16,7 @@ and to delete the remote remote branch, push the deleted local remote branch to
 your remote repository:
 
  $ git push origin :master
-                   ^
+                   |
 Note: colon -------' [1]
 
 Branch 'master' in the remote repository has now been deleted and it only

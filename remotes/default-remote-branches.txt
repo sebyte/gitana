@@ -1,4 +1,4 @@
--*- mode:hi-lock; eval: (highlight-regexp "^ \$.*" 'bold) -*-
+y-*- mode:hi-lock; eval: (highlight-regexp "^ \$.*" 'bold) -*-
 
 When you delete a remote branch (locally) you can be left with a non-existent
 'default' branch for that remote.

@@ -1,4 +1,4 @@
--*- mode:hi-lock; eval: (highlight-regexp " \$.*" 'bold) -*-
+-*- mode:hi-lock; eval: (highlight-regexp "\$.*" 'bold) -*-
 
 Create an empty git repository on your local machine:
 

@@ -1,4 +1,4 @@
--*- mode:hi-lock; eval: (highlight-regexp "\$.*" 'bold) -*-
+-*- mode:hi-lock; eval: (highlight-regexp "^ \\(\\[[a-z*-]+\\]\\)?\\$ .*" 'bold) -*-
 
  Below are examples of each of these commands, listed in the order in which they
  are typically used:

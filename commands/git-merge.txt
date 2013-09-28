@@ -1,4 +1,4 @@
--*- mode:hi-lock; eval: (highlight-regexp "\$.*" 'bold); mode:outline -*-
+-*- mode:hi-lock; eval: (highlight-regexp "^ \\(\\[[a-z*-]+\\]\\)?\\$ .*" 'bold); mode:outline -*-
 
 Rather than duplicate it here, there's a fairly good note on using `git merge'
 in ../remotes/querying-remote-state.txt.

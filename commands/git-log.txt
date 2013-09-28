@@ -1,4 +1,4 @@
--*- mode:hi-lock; eval: (highlight-regexp "\$.*" 'bold); mode:outline -*-
+-*- mode:hi-lock; eval: (highlight-regexp "^ \\(\\[[a-z*-]+\\]\\)?\\$ .*" 'bold); mode:outline -*-
 
 * A visual representation of one branch in relation to another
 

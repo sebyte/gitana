@@ -1,6 +1,6 @@
--*- mode:hi-lock; eval: (highlight-regexp "\$.*" 'bold) -*-
+-*- mode:hi-lock; eval: (highlight-regexp "^ \\(\\[[a-z*-]+\\]\\)?\\$ .*" 'bold) -*-
 
-List all tgas (in current repo):
+List all tags (in current repo):
 
  $ git tag [-l]
  v1.1.0

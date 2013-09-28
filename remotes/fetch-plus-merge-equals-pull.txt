@@ -1,4 +1,4 @@
--*- mode:hi-lock; eval: (highlight-regexp "\$.*" 'bold) -*-
+-*- mode:hi-lock; eval: (highlight-regexp "^ \\(\\[[a-z*-]+\\]\\)?\\$ .*" 'bold) -*-
 
 There are many, many great things about github.  One of them is the ability to
 edit files in your github repository using the web interface.  It makes testing

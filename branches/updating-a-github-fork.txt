@@ -1,4 +1,4 @@
--*- mode:hi-lock; eval: (highlight-regexp "\$.*" 'bold) -*-
+-*- mode:hi-lock; eval: (highlight-regexp "^ \\(\\[[a-z*-]+\\]\\)?\\$ .*" 'bold) -*-
 
 For example, hunchentoot lives in edicl/hunchentoot (on Github).  I've created
 my own fork sebyte/hunchentoot (on Github) and created a local clone (of my
